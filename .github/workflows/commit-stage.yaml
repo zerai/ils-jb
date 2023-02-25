@@ -1,0 +1,50 @@
+name: Commit stage
+
+on:
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    inputs:
+      triggering-sha:
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  checks-composer:
+    name: Validate Composer
+    runs-on: ubuntu-22.04
+    timeout-minutes: 4
+    strategy:
+      matrix:
+        php:
+          - '8.1'
+      fail-fast: true
+    steps:
+      - name: Checkout on SHA-${{ inputs.triggering-sha }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.triggering-sha }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.22.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: memory_limit=-1
+          coverage: none
+          tools: composer, composer-normalize:2.16.0
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-scripts --ansi
+
+      - name: Run composer validate
+        run: |
+          composer validate --strict --ansi
+
+      - name: Run composer normalize
+        run: |
+          composer-normalize --dry-run --ansi
