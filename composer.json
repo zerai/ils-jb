@@ -22,9 +22,12 @@
     "conflict": {
         "symfony/symfony": "*"
     },
-    "require-dev": {},
+    "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.8"
+    },
     "config": {
         "allow-plugins": {
+            "bamarni/composer-bin-plugin": true,
             "composer/package-versions-deprecated": true,
             "php-http/discovery": true,
             "symfony/flex": true,
@@ -37,6 +40,11 @@
         "sort-packages": true
     },
     "extra": {
+        "bamarni-bin": {
+            "bin-links": true,
+            "forward-command": false,
+            "target-directory": "tools"
+        },
         "symfony": {
             "allow-contrib": false,
             "require": "5.4.*"
