@@ -3,6 +3,12 @@
     "type": "project",
     "description": "Italian Linux Society job board",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Zerai Teclai",
+            "email": "teclaizerai@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=7.4",
         "ext-ctype": "*",
