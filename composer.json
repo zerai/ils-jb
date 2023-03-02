@@ -94,13 +94,17 @@
         "cs:fix": "./vendor/bin/ecs --fix",
         "rc": "./vendor/bin/rector --dry-run",
         "rc:fix": "./vendor/bin/rector",
-        "sa": "./vendor/bin/phpstan"
+        "sa": "./vendor/bin/phpstan",
+        "ti": "./bin/phpunit --testsuite=integration",
+        "tu": "./bin/phpunit --testsuite=unit"
     },
     "scripts-descriptions": {
         "cs": "Check php coding style",
         "cs:fix": "Fix php coding style",
         "rc": "Check rector roules",
         "rc:fix": "Fix rector issues",
-        "sa": "Check static analysis (phpstan)"
+        "sa": "Check static analysis (phpstan)",
+        "ti": "Run integration testsuite",
+        "tu": "Run unit testsuite"
     }
 }

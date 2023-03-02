@@ -13,10 +13,10 @@ defaults:
     shell: bash
 
 jobs:
-  checks-composer:
-    name: Validate Composer
+  unit-test:
+    name: Unit test
     runs-on: ubuntu-22.04
-    timeout-minutes: 4
+    timeout-minutes: 5
     strategy:
       matrix:
         php:
@@ -32,22 +32,16 @@ jobs:
         uses: shivammathur/setup-php@2.22.0
         with:
           php-version: ${{ matrix.php }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: memory_limit=-1
           coverage: none
-          tools: composer, composer-normalize:2.16.0
 
       - name: Install Composer dependencies
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
 
-      - name: Run composer validate
+      - name: Run phpunit
         run: |
-          composer validate --strict --ansi
-
-      - name: Run composer normalize
-        run: |
-          composer-normalize --dry-run --ansi
+          bin/phpunit --testsuite=unit
 
 
   coding-standard:
@@ -110,6 +104,44 @@ jobs:
 
       - name: Run phpstan
         run: composer sa
+
+
+  checks-composer:
+    name: Validate Composer
+    runs-on: ubuntu-22.04
+    timeout-minutes: 4
+    strategy:
+      matrix:
+        php:
+          - '7.4'
+      fail-fast: true
+    steps:
+      - name: Checkout on SHA-${{ inputs.triggering-sha }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.triggering-sha }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.22.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: memory_limit=-1
+          coverage: none
+          tools: composer, composer-normalize:2.16.0
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-scripts --ansi
+
+      - name: Run composer validate
+        run: |
+          composer validate --strict --ansi
+
+      - name: Run composer normalize
+        run: |
+          composer-normalize --dry-run --ansi
+
 
   rector:
     name: rector maintenance
