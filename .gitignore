@@ -1,4 +1,6 @@
 /.idea
+/docker
+/docker-compose.yaml
 /tools/**/vendor
 ###> symfony/framework-bundle ###
 /.env.local
