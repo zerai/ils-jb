@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 return function (ECSConfig $ecsConfig): void {
     $ecsConfig->paths([
         __DIR__ . '/src',
+        __DIR__ . '/tests',
         __DIR__ . '/ecs.php',
         __DIR__ . '/rector.php',
     ]);
