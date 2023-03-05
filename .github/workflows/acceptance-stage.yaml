@@ -22,6 +22,16 @@ jobs:
         php:
           - '7.4'
       fail-fast: true
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: ci-db_test
+          MYSQL_USER: ci-db-user
+          MYSQL_PASSWORD: ci-db-password
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
         uses: actions/checkout@v3
@@ -39,6 +49,20 @@ jobs:
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
 
+      - name: Run database migrations
+        if: ${{ github.ref_name == 'main' }}
+        run: ./bin/console doctrine:migrations:migrate -e test -n -vv --allow-no-migration --ansi
+        env:
+          DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['5432'] }}/ci-db?serverVersion=8&charset=utf8mb4
+
+      - name: Run database schema update
+        if: ${{ github.ref_name != 'main' }}
+        run: ./bin/console doctrine:schema:update -e test --force --ansi
+        env:
+          DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['5432'] }}/ci-db?serverVersion=8&charset=utf8mb4
+
       - name: Run integration tests
         run: |
           bin/phpunit --testsuite=integration
+        env:
+          DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['5432'] }}/ci-db?serverVersion=8&charset=utf8mb4
