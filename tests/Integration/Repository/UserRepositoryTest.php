@@ -22,10 +22,10 @@ class UserRepositoryTest extends KernelTestCase
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-        $container = static::getContainer();
-
-        $this->passwordHasher = $container
-            ->get('security.user_password_hasher');
+        //        $container = static::getContainer();
+        //
+        //        $this->passwordHasher = $container
+        //            ->get('security.user_password_hasher');
     }
 
     public function testCanPersistAUser()
@@ -37,7 +37,8 @@ class UserRepositoryTest extends KernelTestCase
         $aUser->setEmail($randomEmail);
         $aUser->setRoles(['ROLE_ADMIN']);
         $aUser->setPassword(
-            $this->passwordHasher->hashPassword($aUser, 'admin')
+            //$this->passwordHasher->hashPassword($aUser, 'admin')
+            'irrelevant'
         );
 
         $repository->add($aUser, true);
