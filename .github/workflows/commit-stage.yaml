@@ -102,6 +102,9 @@ jobs:
           composer install --prefer-dist --no-progress --no-scripts --ansi
           composer bin phpstan install --prefer-dist --no-progress --no-scripts --ansi
 
+      - name: Prepare symfony container
+        run: bin/console debug:container --quiet
+
       - name: Run phpstan
         run: composer sa
 
