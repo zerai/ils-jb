@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property App\\\\Entity\\\\User\\:\\:\\$id is never written, only read\\.$#"
+			message: "#^Property App\\\\Tests\\\\Integration\\\\Repository\\\\UserRepositoryTest\\:\\:\\$entityManager \\(Doctrine\\\\ORM\\\\EntityManager\\) does not accept Doctrine\\\\Persistence\\\\ObjectManager\\.$#"
 			count: 1
-			path: src/Entity/User.php
+			path: tests/Integration/Repository/UserRepositoryTest.php
+
+		-
+			message: "#^Property App\\\\Tests\\\\Integration\\\\Repository\\\\UserRepositoryTest\\:\\:\\$entityManager \\(Doctrine\\\\ORM\\\\EntityManager\\) does not accept null\\.$#"
+			count: 1
+			path: tests/Integration/Repository/UserRepositoryTest.php

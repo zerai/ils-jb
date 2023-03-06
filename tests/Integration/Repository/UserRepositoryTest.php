@@ -13,8 +13,6 @@ class UserRepositoryTest extends KernelTestCase
      */
     private $entityManager;
 
-    private $passwordHasher;
-
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -22,38 +20,68 @@ class UserRepositoryTest extends KernelTestCase
         $this->entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
-        //        $container = static::getContainer();
-        //
-        //        $this->passwordHasher = $container
-        //            ->get('security.user_password_hasher');
     }
 
     public function testCanPersistAUser()
     {
         $repository = $this->entityManager
             ->getRepository(User::class);
-        $randomEmail = Uuid::uuid4() . '@example.com';
-        $aUser = new User();
-        $aUser->setEmail($randomEmail);
-        $aUser->setRoles(['ROLE_ADMIN']);
-        $aUser->setPassword(
-            //$this->passwordHasher->hashPassword($aUser, 'admin')
-            'irrelevant'
-        );
+        $aUser = $this->createRandomAdminUser();
+        $expectedEmail = $aUser->getEmail();
 
         $repository->add($aUser, true);
 
         $userFromDB = $repository->findOneBy([
+            'email' => $expectedEmail,
+        ]);
+        $this->assertSame($expectedEmail, $userFromDB->getEmail());
+    }
+
+    public function testCanRemoveAUser()
+    {
+        $randomEmail = Uuid::uuid4() . '@example.com';
+        $this->persistAnAdminUserWithMail($randomEmail);
+        $repository = $this->entityManager
+            ->getRepository(User::class);
+        $userFromDB = $repository->findOneBy([
             'email' => $randomEmail,
         ]);
-        $this->assertSame($randomEmail, $userFromDB->getEmail());
+
+        $repository->remove($userFromDB, true);
+
+        $this->assertCount(0, $repository->findBy([
+            'email' => $randomEmail,
+        ]));
+    }
+
+    private function createRandomAdminUser(): User
+    {
+        $randomUser = new User();
+        $randomUser->setEmail(Uuid::uuid4() . '@example.com');
+        $randomUser->setRoles(['ROLE_ADMIN']);
+        $randomUser->setPassword('irrelevant');
+
+        return $randomUser;
+    }
+
+    private function persistAnAdminUserWithMail(string $email): User
+    {
+        $randomUser = new User();
+        $randomUser->setEmail($email);
+        $randomUser->setRoles(['ROLE_ADMIN']);
+        $randomUser->setPassword('irrelevant');
+
+        $repository = $this->entityManager
+            ->getRepository(User::class);
+        $repository->add($randomUser, true);
+
+        return $randomUser;
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        // doing this is recommended to avoid memory leaks
         $this->entityManager->close();
         $this->entityManager = null;
     }
