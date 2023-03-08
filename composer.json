@@ -104,6 +104,7 @@
         "rc": "./vendor/bin/rector --dry-run",
         "rc:fix": "./vendor/bin/rector",
         "sa": "./vendor/bin/phpstan",
+        "tf": "./bin/phpunit --testsuite=functionaal",
         "ti": "./bin/phpunit --testsuite=integration",
         "tu": "./bin/phpunit --testsuite=unit"
     },
@@ -113,6 +114,7 @@
         "rc": "Check rector roules",
         "rc:fix": "Fix rector issues",
         "sa": "Check static analysis (phpstan)",
+        "tf": "Run functional testsuite",
         "ti": "Run integration testsuite",
         "tu": "Run unit testsuite"
     }
