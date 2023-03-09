@@ -104,7 +104,7 @@
         "rc": "./vendor/bin/rector --dry-run",
         "rc:fix": "./vendor/bin/rector",
         "sa": "./vendor/bin/phpstan",
-        "tf": "./bin/phpunit --testsuite=functionaal",
+        "tf": "./bin/phpunit --testsuite=functional",
         "ti": "./bin/phpunit --testsuite=integration",
         "tu": "./bin/phpunit --testsuite=unit"
     },
