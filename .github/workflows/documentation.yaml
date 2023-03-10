@@ -1,0 +1,40 @@
+name: Documentation builder
+
+on:
+  workflow_dispatch:
+    inputs:
+      docRef:
+        description: 'Branch or Release'
+        required: false
+        default: 'main'
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  FROM_REF: 'main'
+
+jobs:
+  build-docs:
+    name: Build Docs - (php-${{ matrix.php }})
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        php:
+          - '7.4'
+      fail-fast: true
+    steps:
+      - name: Checkout on SHA-${{ inputs.triggering-sha }}
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.ALBOMON_REPOSITORY }}
+          ref: ${{ env.FROM_REF }}
+
+      - uses: CouscousPHP/GitHub-Action@v1
+      - name: Generate and Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.couscous/generated
