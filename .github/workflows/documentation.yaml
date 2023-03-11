@@ -29,12 +29,11 @@ jobs:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
         uses: actions/checkout@v3
         with:
-          repository: ${{ env.ALBOMON_REPOSITORY }}
           ref: ${{ env.FROM_REF }}
 
       - uses: CouscousPHP/GitHub-Action@v1
       - name: Generate and Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAGES_TOKEN }}
           publish_dir: ./.couscous/generated
