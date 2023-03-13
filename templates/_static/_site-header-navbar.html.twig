@@ -14,9 +14,18 @@
                     <a class="nav-link" href="#">Link</a>
                 </li>
             </ul>
-            <form role="search">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            </form>
+{#            <form role="search">#}
+{#                <input class="form-control" type="search" placeholder="Search" aria-label="Search">#}
+{#            </form>#}
+            {% if app.user is null  %}
+                <a href="{{ path('web_login') }}">
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                </a>
+            {% else %}
+                <a href="{{ path('securiry_logout') }}">
+                    <button type="button" class="btn btn-outline-primary me-2">Logout</button>
+                </a>
+            {% endif %}
         </div>
     </div>
 </nav>
