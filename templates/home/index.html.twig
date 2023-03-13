@@ -1,34 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'site-layout.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block main %}
+<main>
+    <div>
+        <h1 class="text-center">Ils JB Home</h1>
 
-<div class="example-wrapper">
-    <h1>Ils JB Home ✅</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et magna at ante semper pulvinar sed nec dolor.
+            Donec volutpat sodales sem id blandit. Nullam sed arcu elit. Etiam tempor sed urna eget egestas.
+            Quisque mollis, urna gravida fermentum congue, felis leo bibendum justo, ac elementum ligula risus in purus.
+            Phasellus vel sapien vehicula, hendrerit tellus eu, hendrerit magna.
+            Nam imperdiet ligula magna, eu commodo erat commodo id. Morbi ex lorem, interdum vitae mi ut, pretium volutpat orci.
+            Nulla faucibus eros in pretium viverra. Integer imperdiet iaculis risus, euismod imperdiet mauris blandit a.
+            Ut venenatis neque ut orci malesuada posuere. Quisque euismod ex a massa suscipit, ac aliquet orci ultrices.
+            Aenean id dictum massa. Integer ullamcorper lorem nec tellus imperdiet, et tristique est placerat.
+            Donec varius pellentesque nisl et efficitur.
+        </p>
+        <ul>
+            <li>Job position 001</li>
+            <li>Job position 002</li>
+            <li>Job position 003</li>
+            <li>Job position 004</li>
+        </ul>
+    </div>
 
-    This friendly message is coming from:
-
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et magna at ante semper pulvinar sed nec dolor.
-        Donec volutpat sodales sem id blandit. Nullam sed arcu elit. Etiam tempor sed urna eget egestas.
-        Quisque mollis, urna gravida fermentum congue, felis leo bibendum justo, ac elementum ligula risus in purus.
-        Phasellus vel sapien vehicula, hendrerit tellus eu, hendrerit magna.
-        Nam imperdiet ligula magna, eu commodo erat commodo id. Morbi ex lorem, interdum vitae mi ut, pretium volutpat orci.
-        Nulla faucibus eros in pretium viverra. Integer imperdiet iaculis risus, euismod imperdiet mauris blandit a.
-        Ut venenatis neque ut orci malesuada posuere. Quisque euismod ex a massa suscipit, ac aliquet orci ultrices.
-        Aenean id dictum massa. Integer ullamcorper lorem nec tellus imperdiet, et tristique est placerat.
-        Donec varius pellentesque nisl et efficitur.
-    </p>
-    <ul>
-        <li>Job position 001</li>
-        <li>Job position 002</li>
-        <li>Job position 003</li>
-        <li>Job position 004</li>
-    </ul>
-</div>
+</main>
 {% endblock %}
