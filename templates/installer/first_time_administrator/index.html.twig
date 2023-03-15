@@ -1,0 +1,20 @@
+{% extends 'installer-layout.html.twig' %}
+
+{% block title %}Installer{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Installer: gestione amministratori</h1>
+
+        <p>
+            L'applicazione ha rilevato una nuova installazione, per poter proseguire è necessario
+            creare un utente amministratore.
+        </p>
+        <p>
+            <br>
+            Accedi alla web directory sul server ed esegui il comando 'php bin/console app:administrator:create'
+            <br>
+            o 'php bin/console app:administrator:create --help' per ulteriori informazioni
+        </p>
+    </main>
+{% endblock %}
