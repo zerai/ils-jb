@@ -10,7 +10,8 @@ parameters:
     paths:
         - src
         - tests
-
+        - _jobposting/src
+        - _jobposting/tests
 
     ignoreErrors:
         #- '##'

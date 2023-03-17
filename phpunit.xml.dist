@@ -23,18 +23,22 @@
         </testsuite>
         <testsuite name="unit">
             <directory>tests/Unit</directory>
+            <directory>_jobposting/tests/Unit</directory>
         </testsuite>
         <testsuite name="integration">
             <directory>tests/Integration</directory>
+            <directory>_jobposting/tests/Integration</directory>
         </testsuite>
         <testsuite name="functional">
             <directory>tests/Functional</directory>
+            <directory>_jobposting/tests/Functional</directory>
         </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
+            <directory suffix=".php">_jobposting/src</directory>
         </include>
     </coverage>
 
