@@ -78,12 +78,14 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "JobPosting\\": "_jobposting/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/",
+            "JobPosting\\Tests\\": "_jobposting/tests/"
         }
     },
     "minimum-stability": "stable",
