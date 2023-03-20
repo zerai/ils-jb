@@ -1,0 +1,18 @@
+JobPosting\Application\Model\JobPost\JobPost:
+  type: entity
+  table: 'jobpost'
+  repositoryClass: JobPosting\Adapter\Persistence\Doctrine\MySqlJobPostRepository
+  id:
+    id:
+      type: uuid
+      generator:
+        strategy: NONE
+  fields:
+    title:
+      column: title
+      type: string
+      nullable: false
+    description:
+      column: description
+      type: text
+      nullable: false
