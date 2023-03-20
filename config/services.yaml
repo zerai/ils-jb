@@ -36,3 +36,6 @@ services:
             - '../_jobposting/src/Application/Model/JobPosting'
             - '../_jobposting/src/Adapter/Persistence/Doctrine/Config'
 
+    JobPosting\Adapter\Http\:
+        resource: '../_jobposting/src/Adapter/Http/'
+        tags: [ 'controller.service_arguments' ]
