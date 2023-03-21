@@ -1,8 +1,27 @@
 default:
+    gherkin:
+        filters:
+            tags: ~@wip
     suites:
         default:
+            paths:
+                features: '%paths.base%/tests/Behat/DefaultContext/features'
             contexts:
-                - App\Tests\Behat\DemoContext
+                - App\Tests\Behat\DefaultContext\Context\DefaultContext
+        demo:
+            paths:
+                features: '%paths.base%/tests/Behat/Demo/features'
+            contexts:
+                - App\Tests\Behat\Demo\Context\DemoContext
+        installer:
+            paths:
+                features: '%paths.base%/tests/Behat/Installer/features'
+            contexts:
+                - App\Tests\Behat\Installer\Context\InstallerContext
+
 
     extensions:
-        FriendsOfBehat\SymfonyExtension: null
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                environment: test
+            bootstrap: tests/bootstrap.php
