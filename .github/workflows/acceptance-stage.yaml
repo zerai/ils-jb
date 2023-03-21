@@ -123,3 +123,59 @@ jobs:
           bin/phpunit --testsuite=functional
         env:
           DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/ci-db?serverVersion=8&charset=utf8mb4
+
+
+  acceptance-test:
+    name: Behat acceptance test
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        php:
+          - '7.4'
+      fail-fast: true
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: no
+          MYSQL_DATABASE: ci-db_test
+          MYSQL_USER: ci-db-user
+          MYSQL_PASSWORD: ci-db-password
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - name: Checkout on SHA-${{ inputs.triggering-sha }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.triggering-sha }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.22.0
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: memory_limit=-1
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-scripts --ansi
+
+      - name: Run database migrations
+        if: ${{ github.ref_name == 'main' }}
+        run: ./bin/console doctrine:migrations:migrate -e test -n -vv --allow-no-migration --ansi
+        env:
+          DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/ci-db?serverVersion=8&charset=utf8mb4
+
+      - name: Run database schema update
+        if: ${{ github.ref_name != 'main' }}
+        run: ./bin/console doctrine:schema:update -e test --force --ansi
+        env:
+          DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/ci-db?serverVersion=8&charset=utf8mb4
+
+      - name: Run acceptance tests
+        run: |
+          vendor/bin/behat
+        env:
+          DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/ci-db?serverVersion=8&charset=utf8mb4
