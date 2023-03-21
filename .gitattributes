@@ -5,6 +5,7 @@
 /tools export-ignore
 .env.test export-ignore
 .gitgnore export-ignore
+behat.yml.dist export-ignore
 couscous.yml export-ignore
 ecs.php export-ignore
 phpstan.neon.dist export-ignore
