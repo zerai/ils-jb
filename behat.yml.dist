@@ -8,11 +8,12 @@ default:
                 features: '%paths.base%/tests/Behat/DefaultContext/features'
             contexts:
                 - App\Tests\Behat\DefaultContext\Context\DefaultContext
-        demo:
+                - App\Tests\Behat\DefaultContext\Context\ConsoleCommandProcessorContext
+        authentication:
             paths:
-                features: '%paths.base%/tests/Behat/Demo/features'
+                features: '%paths.base%/tests/Behat/Authentication/features'
             contexts:
-                - App\Tests\Behat\Demo\Context\DemoContext
+                - App\Tests\Behat\Authentication\Context\AuthenticationContext
         installer:
             paths:
                 features: '%paths.base%/tests/Behat/Installer/features'
@@ -25,3 +26,12 @@ default:
             kernel:
                 environment: test
             bootstrap: tests/bootstrap.php
+        Behat\MinkExtension:
+                    # adapt this to whatever the real URL is to your local site
+                    base_url: http://127.0.0.1:8000/
+                    # or use "goutte"
+                    default_session: symfony
+                    #javascript_session: selenium2
+                    browser_name: chrome
+                    symfony: ~
+                    #selenium2: ~
