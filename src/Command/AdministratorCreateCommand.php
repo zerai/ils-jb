@@ -68,7 +68,7 @@ class AdministratorCreateCommand extends Command
             exit;
         }
 
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $io->error(sprintf('Invalid email: %s', $email));
             exit;
         }
