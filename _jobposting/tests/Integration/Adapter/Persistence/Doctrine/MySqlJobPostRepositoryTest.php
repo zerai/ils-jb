@@ -37,7 +37,7 @@ class MySqlJobPostRepositoryTest extends KernelTestCase
         $this->assertSame($expectedId, $userFromDB->getId());
     }
 
-    public function testCanRemoveAUser()
+    public function testCanRemoveAJobPost()
     {
         $aJobPost = $this->createRandomJobPost();
         $this->persistAJobPost($aJobPost);

@@ -1,0 +1,24 @@
+{% extends 'admin-layout.html.twig' %}
+
+{% block title %}Nuova Offerte di lavoro{% endblock %}
+
+{% block main %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div>
+        <h1 class="text-center">Nuova offerta di lavoro</h1>
+    </div>
+
+    <form action="{{ path('web_admin_jobpost_new') }}" method="POST">
+        <div class="form-group">
+            <input type="text" class="form-control" id="title" name="title">
+            <label for="title">Titolo</label>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="description" name="description">
+            <label for="description">Descrizione</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salva</button>
+    </form>
+</main>
+{% endblock %}
