@@ -76,7 +76,7 @@ class AuthenticationContext extends MinkContext implements Context
         $randomEmail = Uuid::uuid4() . '@example.com';
         $defaultTestPassword = 'default_test_password';
         $this->unAccountAmministratoreConEmailEPassword($randomEmail, $defaultTestPassword);
-        $this->visit('/login');
+        $this->visitPath('/login');
         $this->fillField('username', $randomEmail);
         $this->fillField('password', $defaultTestPassword);
 

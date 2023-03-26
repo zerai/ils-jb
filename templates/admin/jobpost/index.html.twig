@@ -4,6 +4,16 @@
 
 {% block main %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <section>
+                <div class="alert alert-{{ label }} text-center" role="alert">
+                    {{ message }}
+                </div>
+            </section>
+        {% endfor %}
+    {% endfor %}
+
     <div>
         <h1 class="text-center">JobPost</h1>
 
@@ -13,8 +23,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Id</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
+                    <th scope="col">Titolo</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Azioni</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,6 +35,7 @@
                         <td>{{ jobpost.id }}</td>
                         <td>{{ jobpost.title }}</td>
                         <td>{{ jobpost.description }}</td>
+                        <td><a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}">Elimina</a> </td>
                     </tr>
                 {% endfor %}
                 </tbody>

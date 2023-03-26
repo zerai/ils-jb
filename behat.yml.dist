@@ -9,6 +9,11 @@ default:
             contexts:
                 - App\Tests\Behat\DefaultContext\Context\DefaultContext
                 - App\Tests\Behat\DefaultContext\Context\ConsoleCommandProcessorContext
+        common:
+            paths:
+                features: '%paths.base%/tests/Behat/Common/features'
+            contexts:
+                - App\Tests\Behat\Common\Context\DatabaseContext
         authentication:
             paths:
                 features: '%paths.base%/tests/Behat/Authentication/features'
@@ -19,6 +24,13 @@ default:
                 features: '%paths.base%/tests/Behat/Installer/features'
             contexts:
                 - App\Tests\Behat\Installer\Context\InstallerContext
+        jobpost:
+            paths:
+                features: '%paths.base%/_jobposting/tests/Behat/JobPost/features'
+            contexts:
+                - JobPosting\Tests\Behat\JobPost\Context\JobPostContext
+                - App\Tests\Behat\Authentication\Context\AuthenticationContext
+
 
 
     extensions:

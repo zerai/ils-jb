@@ -10,12 +10,9 @@ require_once __DIR__ . '/../../../../vendor/phpunit/phpunit/src/Framework/Assert
 
 class ConsoleCommandProcessorContext implements Context
 {
-    /**
-     * @var KernelInterface
-     */
-    private $kernel;
+    private KernelInterface $kernel;
 
-    private $output;
+    private ?string $output = null;
 
     public function __construct(KernelInterface $kernel)
     {

@@ -15,15 +15,9 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 final class InstallerContext implements Context
 {
-    /**
-     * @var KernelInterface
-     */
-    private $kernel;
+    private KernelInterface $kernel;
 
-    /**
-     * @var Response|null
-     */
-    private $response;
+    private ?Response $response = null;
 
     public function __construct(KernelInterface $kernel)
     {
