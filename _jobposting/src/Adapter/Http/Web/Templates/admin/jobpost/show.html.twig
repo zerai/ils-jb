@@ -1,0 +1,28 @@
+{% extends 'admin-layout.html.twig' %}
+
+{% block title %}Offerte di lavoro{% endblock %}
+
+{% block main %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <section>
+                <div class="alert alert-{{ label }} text-center" role="alert">
+                    {{ message }}
+                </div>
+            </section>
+        {% endfor %}
+    {% endfor %}
+
+    <div>
+        <h1 class="text-center">Dettaglio offerta di lavoro</h1>
+
+        <div>ID: {{ jobpost.id }}</div>
+        <div>TITOLO: {{ jobpost.title }}</div>
+        <div>DESCRIZIONE: {{ jobpost.description }}</div>
+{#        <a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}">Elimina</a>#}
+{#        <a href="{{ path('web_admin_jobpost_edit', {'id': jobpost.id.toString}) }}">Modifica</a>#}
+
+    </div>
+</main>
+{% endblock %}

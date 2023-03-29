@@ -32,7 +32,6 @@ default:
                 - App\Tests\Behat\Authentication\Context\AuthenticationContext
 
 
-
     extensions:
         FriendsOfBehat\SymfonyExtension:
             kernel:

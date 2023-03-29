@@ -22,7 +22,8 @@ final class DatabaseContext implements Context
     }
 
     /**
-     * @BeforeSuit
+     * TODO: FIX 'Suite hook callback: App\Tests\Behat\Common\Context\DatabaseContext::clearAllData() must be a static method '
+     * #@BeforeSuite
      */
     public function clearAllData(): void
     {

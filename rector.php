@@ -19,6 +19,11 @@ return static function (RectorConfig $rectorConfig): void {
         //__DIR__ . '/tools',
     ]);
 
+    $rectorConfig->skip([
+        __DIR__ . '/tests/Behat/Installer/Context',
+        __DIR__ . '/tests/Behat/DefaultContext/Context',
+    ]);
+
     // register a single rule
     //$rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
 

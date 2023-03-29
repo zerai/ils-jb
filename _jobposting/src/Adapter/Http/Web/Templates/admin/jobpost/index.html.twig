@@ -33,9 +33,20 @@
                     <tr>
                         <td>#</td>
                         <td>{{ jobpost.id }}</td>
-                        <td>{{ jobpost.title }}</td>
-                        <td>{{ jobpost.description }}</td>
-                        <td><a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}">Elimina</a> </td>
+                        <td>
+                            <a href="{{ path('web_admin_jobpost_show', {'id': jobpost.id.toString}) }}">
+                                {{ jobpost.title }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('web_admin_jobpost_show', {'id': jobpost.id.toString}) }}">
+                                {{ jobpost.description }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}">Elimina</a>
+                            <a href="{{ path('web_admin_jobpost_edit', {'id': jobpost.id.toString}) }}">Modifica</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
