@@ -3,7 +3,32 @@ parameters:
 		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:createQuery\\(\\)\\.$#"
 			count: 1
+			path: _jobposting/tests/Behat/JobPost/Context/JobPostContext.php
+
+		-
+			message: "#^Property JobPosting\\\\Tests\\\\Integration\\\\Adapter\\\\Persistence\\\\Doctrine\\\\MySqlJobPostRepositoryTest\\:\\:\\$entityManager \\(Doctrine\\\\ORM\\\\EntityManagerInterface\\|null\\) does not accept Doctrine\\\\Persistence\\\\ObjectManager\\.$#"
+			count: 1
+			path: _jobposting/tests/Integration/Adapter/Persistence/Doctrine/MySqlJobPostRepositoryTest.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\User\\:\\:\\$email type mapping mismatch\\: property can contain string\\|null but database expects string\\.$#"
+			count: 1
+			path: src/Entity/User.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\User\\:\\:\\$password type mapping mismatch\\: property can contain string\\|null but database expects string\\.$#"
+			count: 1
+			path: src/Entity/User.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:createQuery\\(\\)\\.$#"
+			count: 1
 			path: tests/Behat/Authentication/Context/AuthenticationContext.php
+
+		-
+			message: "#^Parameter \\#1 \\$em of class Doctrine\\\\Common\\\\DataFixtures\\\\Purger\\\\ORMPurger constructor expects Doctrine\\\\ORM\\\\EntityManagerInterface\\|null, Doctrine\\\\Persistence\\\\ObjectManager given\\.$#"
+			count: 1
+			path: tests/Behat/Common/Context/DatabaseContext.php
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:createQuery\\(\\)\\.$#"

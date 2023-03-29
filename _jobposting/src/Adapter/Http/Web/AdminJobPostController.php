@@ -2,6 +2,8 @@
 
 namespace JobPosting\Adapter\Http\Web;
 
+use JobPosting\Adapter\Http\Web\Form\Dto\JobPostDto;
+use JobPosting\Adapter\Http\Web\Form\JobPostType;
 use JobPosting\Adapter\Persistence\Doctrine\MySqlJobPostRepository;
 use JobPosting\Application\Model\JobPost\JobPost;
 use Ramsey\Uuid\Uuid;
@@ -21,33 +23,91 @@ class AdminJobPostController extends AbstractController
 
     /**
      * @Route("/admin/jobpost", name="web_admin_jobpost_index", methods={"GET"})
+     * @Route("/admin", name="web_admin_index", methods={"GET"})
      */
-    public function index(): Response
+    public function list(): Response
     {
-        $jobposts = $this->jobPostRepository->findAll();
+        $jobPosts = $this->jobPostRepository->findAll();
 
-        return $this->render('admin/jobpost/index.html.twig', [
-            'jobposts' => $jobposts,
+        return $this->render('@jobposting/admin/jobpost/index.html.twig', [
+            'jobposts' => $jobPosts,
         ]);
     }
 
     /**
      * @Route("admin/jobpost/new", name="web_admin_jobpost_new", methods={"GET", "POST"})
      */
-    public function create(Request $request): Response
+    public function new(Request $request): Response
     {
-        if ($request->isMethod('POST')) {
-            $jobpost = new JobPost(Uuid::uuid4(), $request->get('title'));
-            $jobpost->setDescription($request->get('description'));
+        $jobPostFormModel = new JobPostDto();
+        $form = $this->createForm(JobpostType::class, $jobPostFormModel, []);
+        $form->handleRequest($request);
 
-            $this->jobPostRepository->add($jobpost, true);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var JobPostDto $formData */
+            $formData = $form->getData();
+
+            $jobPost = new JobPost(Uuid::uuid4(), $formData->title);
+            $jobPost->setDescription($formData->description);
+
+            $this->jobPostRepository->add($jobPost, true);
 
             $this->addFlash('success', 'Nuova offerta di lavoro creata');
 
             return $this->redirectToRoute('web_admin_jobpost_index');
         }
 
-        return $this->render('admin/jobpost/new.html.twig');
+        return $this->renderForm('@jobposting/admin/jobpost/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("admin/jobpost/{id}", name="web_admin_jobpost_show", methods={"GET"})
+     */
+    public function show(Request $request): Response
+    {
+        $jobPost = $this->jobPostRepository->findOneBy([
+            'id' => $request->get('id'),
+        ]);
+
+        return $this->render('@jobposting/admin/jobpost/show.html.twig', [
+            'jobpost' => $jobPost,
+        ]);
+    }
+
+    /**
+     * @Route("admin/jobpost/edit/{id}", name="web_admin_jobpost_edit", methods={"GET", "POST"})
+     */
+    public function edit(Request $request): Response
+    {
+        // find jobPost or
+        $jobPost = $this->jobPostRepository->findOneBy([
+            'id' => $request->get('id'),
+        ]);
+
+        $formModel = $this->mapJobpostToFormModel($jobPost);
+        $form = $this->createForm(JobpostType::class, $formModel, []);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var JobPostDto $formData */
+            $formData = $form->getData();
+            $jobPost->setTitle($formData->title);
+            $jobPost->setDescription($formData->description);
+
+            $this->jobPostRepository->add($jobPost, true);
+
+            $this->addFlash('success', 'Offerta di lavoro modificata');
+
+            return $this->redirectToRoute('web_admin_jobpost_show', [
+                'id' => $jobPost->getId(),
+            ]);
+        }
+
+        return $this->renderForm('@jobposting/admin/jobpost/edit.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     /**
@@ -64,5 +124,14 @@ class AdminJobPostController extends AbstractController
         $this->addFlash('success', 'Offerta di lavoro eliminata');
 
         return $this->redirectToRoute('web_admin_jobpost_index');
+    }
+
+    private function mapJobpostToFormModel(JobPost $jobPost): JobPostDto
+    {
+        $formModel = new JobPostDto();
+        $formModel->title = $jobPost->getTitle();
+        $formModel->description = $jobPost->getDescription();
+
+        return $formModel;
     }
 }

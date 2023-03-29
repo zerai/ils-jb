@@ -35,7 +35,11 @@ services:
         exclude:
             - '../_jobposting/src/Application/Model/JobPosting'
             - '../_jobposting/src/Adapter/Persistence/Doctrine/Config'
+            - '../_jobposting/src/Adapter/Http/Web/Form/Dto'
+            - '../_jobposting/src/Adapter/Http/Web/Templates'
 
     JobPosting\Adapter\Http\:
         resource: '../_jobposting/src/Adapter/Http/'
+        exclude:
+            - '../_jobposting/src/Adapter/Http/Web/Templates'
         tags: [ 'controller.service_arguments' ]

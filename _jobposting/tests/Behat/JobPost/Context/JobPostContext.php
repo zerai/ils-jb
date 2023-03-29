@@ -2,6 +2,7 @@
 
 namespace JobPosting\Tests\Behat\JobPost\Context;
 
+use App\Tests\Behat\Bootstrap\AdminDictionaryTrait;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\RawMinkContext;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class JobPostContext extends RawMinkContext implements Context
 {
+    use AdminDictionaryTrait;
+
     private KernelInterface $kernel;
 
     public function __construct(KernelInterface $kernel)
@@ -67,6 +70,9 @@ class JobPostContext extends RawMinkContext implements Context
             $jobpost = $this->createRandomJobPost();
             if (! empty($row['titolo'])) {
                 $jobpost->setTitle($row['titolo']);
+            }
+            if (! empty($row['descrizione'])) {
+                $jobpost->setDescription($row['descrizione']);
             }
 
             $em->persist($jobpost);
