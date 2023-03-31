@@ -8,6 +8,8 @@ default:
                 features: '%paths.base%/tests/Behat/DefaultContext/features'
             contexts:
                 - App\Tests\Behat\DefaultContext\Context\DefaultContext
+                - App\Tests\Behat\Authentication\Context\AuthenticationContext
+                - App\Tests\Behat\DefaultContext\Context\AdminAdminAccountContext
                 - App\Tests\Behat\DefaultContext\Context\ConsoleCommandProcessorContext
         common:
             paths:

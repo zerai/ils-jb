@@ -4,20 +4,39 @@
 
 {% block main %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <h1>Amministratori</h1>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <section>
+                <div class="alert alert-{{ label }} text-center" role="alert">
+                    {{ message }}
+                </div>
+            </section>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Gestione account amministratori</h1>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Email</th>
+                <th scope="col">Azioni</th>
             </tr>
             </thead>
             <tbody>
             {% for user in users  %}
                 <tr>
                     <td>#</td>
-                    <td>{{ user.email }}</td>
+                    <td><a href="{{ path('web_admin_administrator_show', {'id': user.id}) }}">{{ user.email }}</a></td>
+                    <td>
+                        {% if enableDeleteButton %}
+                            {{ include('admin/administrator/_delete_form.html.twig') }}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
