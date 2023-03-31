@@ -14,9 +14,23 @@
         {% endfor %}
     {% endfor %}
 
-    <div>
-        <h1 class="text-center">Dettaglio offerta di lavoro</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dettaglio offerta di lavoro</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <a href="{{ path('web_admin_jobpost_index') }}" class="btn btn-sm btn-outline-secondary">
+                    Torna alla lista
+                </a>
+                <a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}" class="btn btn-sm btn-outline-secondary">
+                    Elimina
+                </a>
+            </div>
+        </div>
+    </div>
 
+    <h2>ID: {{ jobpost.id }}</h2>
+
+    <div>
         <div>ID: {{ jobpost.id }}</div>
         <div>TITOLO: {{ jobpost.title }}</div>
         <div>DESCRIZIONE: {{ jobpost.description }}</div>
