@@ -2,7 +2,9 @@
 
 namespace App\Tests\Behat\DefaultContext\Context;
 
+use App\Tests\Behat\Bootstrap\AdminDictionaryTrait;
 use Behat\Behat\Context\Context;
+use Behat\MinkExtension\Context\RawMinkContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -13,8 +15,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @see http://behat.org/en/latest/quick_start.html
  */
-final class DefaultContext implements Context
+final class DefaultContext extends RawMinkContext implements Context
 {
+    use AdminDictionaryTrait;
+
     private KernelInterface $kernel;
 
     private ?Response $response = null;

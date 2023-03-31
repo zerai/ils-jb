@@ -50,4 +50,20 @@ trait AdminDictionaryTrait
     {
         $this->visitPath('/admin/jobpost/new');
     }
+
+    /**
+     * Apre la pagina di gestione amministratori
+     *
+     * Esempio: Dato sono sulla pagina di gestione amministratori
+     * Esempio: E sono sulla pagina di gestione amministratori
+     * Esempio: Quando vado sulla pagina di gestione amministratori
+     * Esempio: E vado sulla pagina di gestione amministratori
+     *
+     * @Given sono sulla pagina di gestione amministratori
+     * @When vado sulla pagina di gestione amministratori
+     */
+    public function sonoSullaPaginaDiGestioneAmministratori()
+    {
+        $this->visitPath('/admin/administrator');
+    }
 }
