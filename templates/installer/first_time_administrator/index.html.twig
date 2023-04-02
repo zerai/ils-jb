@@ -3,18 +3,25 @@
 {% block title %}Installer{% endblock %}
 
 {% block body %}
-    <main>
-        <h1>Installer: gestione amministratori</h1>
-
-        <p>
-            L'applicazione ha rilevato una nuova installazione, per poter proseguire è necessario
-            creare un utente amministratore.
-        </p>
-        <p>
-            <br>
-            Accedi alla web directory sul server ed esegui il comando 'php bin/console app:administrator:create'
-            <br>
-            o 'php bin/console app:administrator:create --help' per ulteriori informazioni
-        </p>
+    <main class="container">
+        <div class="row justify-content-center">
+            <h1 class="text-center">Installazione ILS Job board</h1>
+{#            <div class="col-3 p-0">#}
+{#                Account amministratori#}
+{#            </div>#}
+            <div class="col-6 m-2 p-0">
+                <p>
+                    Procedura di installazione avviata, per poter proseguire è necessario
+                    creare un utente amministratore.
+                </p>
+                <p>
+                    <br>
+                    Accedi alla web directory sul server ed esegui nel terminale il comando <br>
+                    <code>php bin/console app:administrator:create my-email@example.com my-password</code>
+                    <br>
+                    oppure <code>php bin/console app:administrator:create --help</code> per ulteriori informazioni.
+                </p>
+            </div>
+        </div>
     </main>
 {% endblock %}

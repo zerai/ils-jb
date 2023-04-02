@@ -25,6 +25,7 @@ default:
             paths:
                 features: '%paths.base%/tests/Behat/Installer/features'
             contexts:
+                - Behat\MinkExtension\Context\MinkContext
                 - App\Tests\Behat\Installer\Context\InstallerContext
         jobpost:
             paths:

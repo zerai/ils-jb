@@ -1,13 +1,29 @@
-# This file contains a user story for demonstration only.
-# Learn how to get started with Behat and BDD on Behat's website:
-# http://behat.org/en/latest/quick_start.html
+#language: it
+Funzionalità: Processo di installazione
+    Nella circostanza di 'primo utilizzo' dell'applicativo,
+    il sistema dovrebbe avviare automaticamente la procedura
+    di installazione, e negare l'accesso a tutte le altre aree
+    dell'applicativo.
 
-Feature:
-    In order to prove that the Behat Symfony extension is correctly installed
-    As a user
-    I want to have a demo scenario
+    Viene considerata circostanza di 'primo utilizzo' ogni qualvolta
+    nel sistema non sia correttamente registrato/abilitato
+    almeno 1 account con privilegi amministrativi.
 
-    @wip
-    Scenario: It receives a response from Symfony's kernel
-        When a demo scenario sends a request to "/"
-        Then the response should be received
+    La procedura di installazione è composta dai seguenti step
+
+    - verifica delle librerie/estensioni nel sistema
+    - creazione del primo account di amministrazione
+    - TODO - ?(prob. non necessario) configurazione dei parametri per il corretto funzionamento
+        - TODO ? - configurazione database
+        - TODO ? - configurazione email account
+
+
+    Scenario: Il processo di installazione si avvia automaticamente
+        Oltre all'avvio dell'installer
+        verifico che l'homepage non sia accessibile
+
+        Dato il sistema non è inizializzato correttamente
+        E vado sulla homepage del sito
+        Allora dovrei vedere "Procedura di installazione avviata"
+        E dovrei essere sulla pagina di installazione
+

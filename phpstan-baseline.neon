@@ -36,6 +36,11 @@ parameters:
 			path: tests/Behat/DefaultContext/Context/ConsoleCommandProcessorContext.php
 
 		-
+			message: "#^Parameter \\#1 \\$em of class Doctrine\\\\Common\\\\DataFixtures\\\\Purger\\\\ORMPurger constructor expects Doctrine\\\\ORM\\\\EntityManagerInterface\\|null, Doctrine\\\\Persistence\\\\ObjectManager given\\.$#"
+			count: 1
+			path: tests/Behat/Installer/Context/InstallerContext.php
+
+		-
 			message: "#^Property App\\\\Tests\\\\Integration\\\\Repository\\\\UserRepositoryTest\\:\\:\\$entityManager \\(Doctrine\\\\ORM\\\\EntityManager\\) does not accept Doctrine\\\\Persistence\\\\ObjectManager\\.$#"
 			count: 1
 			path: tests/Integration/Repository/UserRepositoryTest.php

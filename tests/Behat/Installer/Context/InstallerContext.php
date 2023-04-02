@@ -2,9 +2,10 @@
 
 namespace App\Tests\Behat\Installer\Context;
 
+use App\Tests\Behat\Bootstrap\WebsiteAreaDictionaryTrait;
 use Behat\Behat\Context\Context;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Behat\MinkExtension\Context\RawMinkContext;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -13,11 +14,11 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @see http://behat.org/en/latest/quick_start.html
  */
-final class InstallerContext implements Context
+final class InstallerContext extends RawMinkContext implements Context
 {
-    private KernelInterface $kernel;
+    use WebsiteAreaDictionaryTrait;
 
-    private ?Response $response = null;
+    private KernelInterface $kernel;
 
     public function __construct(KernelInterface $kernel)
     {
@@ -25,20 +26,37 @@ final class InstallerContext implements Context
     }
 
     /**
-     * @When a demo scenario sends a request to :path
+     * Resetta il sistema eliminando
+     * tutti i dati nel database
+     *
+     * ESEMPIO: Dato il sistema non è inizializzato correttamente
+     * ESEMPIO: E il sistema non è inizializzato correttamente
+     *
+     * @Given /^il sistema non è inizializzato correttamente$/
      */
-    public function aDemoScenarioSendsARequestTo(string $path): void
+    public function ilSistemaNonEInizializzatoCorrettamente()
     {
-        $this->response = $this->kernel->handle(Request::create($path, 'GET'));
+        $this->clearAllDatabaseData();
     }
 
     /**
-     * @Then the response should be received
+     * Verifica che la pagina corrente sia quella
+     * di installazione
+     *
+     * Esempio: Allora dovrei essere sulla pagina di installazione
+     * Esempio: E dovrei essere sulla pagina di installazione
+     *
+     * @Then /^dovrei essere sulla pagina di installazione$/
      */
-    public function theResponseShouldBeReceived(): void
+    public function dovreiEssereSullaPaginaDiInstallazione()
     {
-        if ($this->response === null) {
-            throw new \RuntimeException('No response received');
-        }
+        $this->assertSession()->addressEquals($this->locatePath('/installer/administrator'));
+    }
+
+    private function clearAllDatabaseData(): void
+    {
+        $em = $this->kernel->getContainer()->get('doctrine')->getManager();
+        $purger = new ORMPurger($em);
+        $purger->purge();
     }
 }
