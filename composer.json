@@ -21,6 +21,7 @@
         "ramsey/uuid": "^4.2",
         "ramsey/uuid-doctrine": "^2.0",
         "sensio/framework-extra-bundle": "^6.2",
+        "stella-maris/clock": "^0.1.7",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17 || ^2",
