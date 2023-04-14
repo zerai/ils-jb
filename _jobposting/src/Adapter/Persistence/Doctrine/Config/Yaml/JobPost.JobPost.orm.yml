@@ -16,3 +16,11 @@ JobPosting\Application\Model\JobPost\JobPost:
       column: description
       type: text
       nullable: false
+    publicationStart:
+      column: publication_start
+      type: date_immutable
+      nullable: true
+    publicationEnd:
+      column: publication_end
+      type: date_immutable
+      nullable: true
