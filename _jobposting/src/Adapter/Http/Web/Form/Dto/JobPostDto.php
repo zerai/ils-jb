@@ -7,4 +7,8 @@ class JobPostDto
     public string $title;
 
     public string $description;
+
+    public ?\DateTimeImmutable $publicationStart = null;
+
+    public ?\DateTimeImmutable $publicationEnd = null;
 }

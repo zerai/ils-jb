@@ -21,6 +21,9 @@
                 <a href="{{ path('web_admin_jobpost_index') }}" class="btn btn-sm btn-outline-secondary">
                     Torna alla lista
                 </a>
+                <a href="{{ path('web_admin_jobpost_edit', {'id': jobpost.id.toString}) }}" class="btn btn-sm btn-outline-secondary">
+                    Modifica
+                </a>
                 <a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}" class="btn btn-sm btn-outline-secondary">
                     Elimina
                 </a>
@@ -34,9 +37,14 @@
         <div>ID: {{ jobpost.id }}</div>
         <div>TITOLO: {{ jobpost.title }}</div>
         <div>DESCRIZIONE: {{ jobpost.description }}</div>
-{#        <a href="{{ path('web_admin_jobpost_delete', {'id': jobpost.id.toString}) }}">Elimina</a>#}
-{#        <a href="{{ path('web_admin_jobpost_edit', {'id': jobpost.id.toString}) }}">Modifica</a>#}
-
+        <div>PUBBLICATO: {% if jobpost.publicationStart is not null%}
+            {{ jobpost.publicationStart|date('Y-m-d') }}
+            {% endif %}
+        </div>
+        <div>SCADE: {% if jobpost.publicationEnd is not null%}
+                {{ jobpost.publicationEnd|date('Y-m-d') }}
+            {% endif %}
+        </div>
     </div>
 </main>
 {% endblock %}
