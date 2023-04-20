@@ -103,6 +103,13 @@ class AdminJobPostController extends AbstractController
             $formData = $form->getData();
             $jobPost->setTitle($formData->title);
             $jobPost->setDescription($formData->description);
+            if (null !== $formData->publicationStart) {
+                $jobPost->setPublicationStart($formData->publicationStart);
+            }
+
+            if (null !== $formData->publicationEnd) {
+                $jobPost->setPublicationEnd($formData->publicationEnd);
+            }
 
             $this->jobPostRepository->add($jobPost, true);
 
