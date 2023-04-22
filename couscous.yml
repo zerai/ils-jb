@@ -2,9 +2,10 @@
 
 template:
   # Name of the directory containing the website template (default is "website")
-  directory: docs
+  directory: docs/template/
   # Or if you are using a remote template, you can set the Git URL
-  url: https://github.com/CouscousPHP/Template-Light.git
+  #url: https://github.com/CouscousPHP/Template-Light.git
+
   # Name of the index file (default is "README.md")
   index: docs/index.md
 
@@ -43,8 +44,10 @@ baseUrl: https://zerai.github.io/ils-jb
 
 
 # Any variable you put in this file is also available in the Twig layouts:
-title: Ils-jb
+title: Ils-jb - Documentazione
+titleShort: Ils-jb
 subTitle: Italian Linux Society job board
+
 github:
   user: zerai
   repo: ils-jb
@@ -52,16 +55,22 @@ github:
 
 # The left menu bar
 menu:
-  items:
-    project:
-      text: Il progetto
-      # You can use relative urls
-      relativeUrl: progetto.html
-    install:
-      text: Installazione
-      # You can use relative urls
-      relativeUrl: installazione.html
-#    couscous:
-#      text: Couscous.io
-#      # Or absolute urls
-#      absoluteUrl: http://couscous.io
+  sections:
+    main:
+      name: Getting Started
+      items:
+        project:
+          text: Il progetto
+          # You can use relative urls
+          relativeUrl: progetto.html
+        install:
+          text: Installazione
+          # You can use relative urls
+          relativeUrl: installazione.html
+    developer:
+      name: Guida sviluppatori
+      items:
+        setup:
+          text: Setup e sviluppo
+          # You can use relative urls
+          relativeUrl: developers/setup-sviluppo.html
