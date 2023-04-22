@@ -1,3 +1,7 @@
+---
+currentMenu: project
+---
+
 # ILS-JB [WIP]
 
 Lorem ipsum dolor sit amet. Nulla faucibus eros in pretium viverra. Integer imperdiet iaculis risus, euismod imperdiet mauris blandit a.
