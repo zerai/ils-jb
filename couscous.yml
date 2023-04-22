@@ -60,17 +60,32 @@ menu:
       name: Getting Started
       items:
         project:
-          text: Il progetto
+          text: Il progetto [WIP]
           # You can use relative urls
           relativeUrl: progetto.html
         install:
-          text: Installazione
+          text: Installazione [WIP]
           # You can use relative urls
           relativeUrl: installazione.html
     developer:
       name: Guida sviluppatori
       items:
+        general-note:
+          text: Note Generali
+          # You can use relative urls
+          relativeUrl: developers/note-generali.html
         setup:
           text: Setup e sviluppo
           # You can use relative urls
           relativeUrl: developers/setup-sviluppo.html
+    documentation:
+      name: Documentazione
+      items:
+        docs-contributions:
+          text: Contributi
+          # You can use relative urls
+          relativeUrl: docs-contributions/docs-contributions.html
+        docs-deploy:
+          text: deploy
+          # You can use relative urls
+          relativeUrl: docs-contributions/deploy.html
