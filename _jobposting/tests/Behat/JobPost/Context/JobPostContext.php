@@ -74,6 +74,12 @@ class JobPostContext extends RawMinkContext implements Context
             if (! empty($row['descrizione'])) {
                 $jobpost->setDescription($row['descrizione']);
             }
+            if (! empty($row['inizio pubblicazione'])) {
+                $jobpost->setPublicationStart(\DateTimeImmutable::createFromFormat('Y-m-d|', $row['inizio pubblicazione']));
+            }
+            if (! empty($row['fine pubblicazione'])) {
+                $jobpost->setPublicationEnd(\DateTimeImmutable::createFromFormat('Y-m-d|', $row['fine pubblicazione']));
+            }
 
             $em->persist($jobpost);
         }

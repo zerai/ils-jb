@@ -4,6 +4,7 @@ namespace JobPosting\Adapter\Http\Web\Form;
 
 use JobPosting\Adapter\Http\Web\Form\Dto\JobPostDto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,6 +29,22 @@ class JobPostType extends AbstractType
                 'attr' => [
                     'label' => 'Descrizione-css',
                 ],
+            ])
+
+            ->add('publicationStart', DateType::class, [
+                'required' => false,
+                'label' => 'Inizio pubblicazione',
+                'widget' => 'single_text',
+                'input' => 'datetime_immutable',
+                'empty_data' => '',
+            ])
+
+            ->add('publicationEnd', DateType::class, [
+                'required' => false,
+                'label' => 'Fine pubblicazione',
+                'widget' => 'single_text',
+                'input' => 'datetime_immutable',
+                'empty_data' => '',
             ])
 
             ->add(

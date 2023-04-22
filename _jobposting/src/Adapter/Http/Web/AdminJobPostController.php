@@ -50,6 +50,14 @@ class AdminJobPostController extends AbstractController
             $jobPost = new JobPost(Uuid::uuid4(), $formData->title);
             $jobPost->setDescription($formData->description);
 
+            if (null !== $formData->publicationStart) {
+                $jobPost->setPublicationStart($formData->publicationStart);
+            }
+
+            if (null !== $formData->publicationEnd) {
+                $jobPost->setPublicationEnd($formData->publicationEnd);
+            }
+
             $this->jobPostRepository->add($jobPost, true);
 
             $this->addFlash('success', 'Nuova offerta di lavoro creata');
@@ -95,6 +103,13 @@ class AdminJobPostController extends AbstractController
             $formData = $form->getData();
             $jobPost->setTitle($formData->title);
             $jobPost->setDescription($formData->description);
+            if (null !== $formData->publicationStart) {
+                $jobPost->setPublicationStart($formData->publicationStart);
+            }
+
+            if (null !== $formData->publicationEnd) {
+                $jobPost->setPublicationEnd($formData->publicationEnd);
+            }
 
             $this->jobPostRepository->add($jobPost, true);
 
@@ -131,6 +146,8 @@ class AdminJobPostController extends AbstractController
         $formModel = new JobPostDto();
         $formModel->title = $jobPost->getTitle();
         $formModel->description = $jobPost->getDescription();
+        $formModel->publicationStart = $jobPost->getPublicationStart();
+        $formModel->publicationEnd = $jobPost->getPublicationEnd();
 
         return $formModel;
     }

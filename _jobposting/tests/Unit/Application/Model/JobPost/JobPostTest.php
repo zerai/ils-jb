@@ -43,4 +43,38 @@ class JobPostTest extends TestCase
 
         self::assertEquals($expectedDescription, $jobPost->getDescription());
     }
+
+    public function testPublicationDateShouldBeNullAsDefault(): void
+    {
+        $jobPost = new JobPost(Uuid::uuid4(), 'a title');
+
+        self::assertNull($jobPost->getPublicationStart());
+    }
+
+    public function testShouldChangePublicationDate(): void
+    {
+        $jobPost = new JobPost(Uuid::uuid4(), 'a title');
+
+        $jobPost->setPublicationStart(new \DateTimeImmutable('now'));
+
+        self::assertNotNull($jobPost->getPublicationStart());
+    }
+
+    public function testExpirationDateShouldBeNullAsDefault(): void
+    {
+        $jobPost = new JobPost(Uuid::uuid4(), 'a title');
+
+        self::assertNull($jobPost->getPublicationEnd());
+    }
+
+    public function testShouldChangeExpirationDate(): void
+    {
+        $jobPost = new JobPost(Uuid::uuid4(), 'a title');
+
+        $jobPost->setPublicationStart(new \DateTimeImmutable('now'));
+
+        $jobPost->setPublicationEnd(new \DateTimeImmutable('tomorrow'));
+
+        self::assertNotNull($jobPost->getPublicationEnd());
+    }
 }
