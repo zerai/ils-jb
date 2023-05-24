@@ -39,4 +39,26 @@ class MySqlJobPostRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
+    /*
+     * READSIDE QUERYS
+     */
+
+    public function findPublishedJobPost(\DateTimeImmutable $currentDate = null): array
+    {
+        $currentDate ??= new \DateTimeImmutable('now');
+
+        $qb = $this->createQueryBuilder('j');
+        $qb->where('j.publicationStart <= :publicationStart')
+            ->andWhere('j.publicationEnd >= :publicationEnd')
+            ->orderBy('j.publicationStart')
+            ->setParameter('publicationStart', $currentDate->format('Y-m-d'))
+            ->setParameter('publicationEnd', $currentDate->format('Y-m-d'));
+
+        $result = $qb->getQuery()
+            ->getResult();
+
+        return $result;
+    }
 }

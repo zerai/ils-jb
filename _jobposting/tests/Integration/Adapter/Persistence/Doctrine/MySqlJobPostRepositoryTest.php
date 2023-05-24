@@ -5,6 +5,7 @@ namespace JobPosting\Tests\Integration\Adapter\Persistence\Doctrine;
 use JobPosting\Application\Model\JobPost\JobPost;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use function Zenstruck\Foundry\repository;
 
 class MySqlJobPostRepositoryTest extends KernelTestCase
 {
@@ -53,6 +54,37 @@ class MySqlJobPostRepositoryTest extends KernelTestCase
         $this->assertCount(0, $repository->findBy([
             'id' => $aJobPost->getId(),
         ]));
+    }
+
+    /*
+     * READSIDE QUERYS
+     */
+    public function testFindPublishedJobPost(): void
+    {
+        $repositoryHelper = repository(JobPost::class);
+        $repositoryHelper->truncate();
+
+        $anActiveJobPost = $this->createRandomJobPost();
+        $anActiveJobPost->setPublicationStart(new \DateTimeImmutable('now'));
+        $anActiveJobPost->setPublicationEnd(new \DateTimeImmutable('now'));
+        $this->persistAJobPost($anActiveJobPost);
+
+        $anExpiredJobPost = $this->createRandomJobPost();
+        $anExpiredJobPost->setPublicationStart(new \DateTimeImmutable('- 2 days'));
+        $anExpiredJobPost->setPublicationEnd(new \DateTimeImmutable('- 2 days'));
+        $this->persistAJobPost($anExpiredJobPost);
+
+        $aScheduledJobPost = $this->createRandomJobPost();
+        $aScheduledJobPost->setPublicationStart(new \DateTimeImmutable('+ 2 days'));
+        $aScheduledJobPost->setPublicationEnd(new \DateTimeImmutable('+ 4 days'));
+        $this->persistAJobPost($aScheduledJobPost);
+
+        $repository = $this->entityManager
+            ->getRepository(JobPost::class);
+
+        $jobPostsFromDB = $repository->findPublishedJobPost();
+
+        $this->assertCount(1, $jobPostsFromDB);
     }
 
     private function createRandomJobPost(): JobPost
