@@ -18,3 +18,11 @@ jobs:
     uses: zerai/ils-jb/.github/workflows/acceptance-stage.yaml@main
     with:
       triggering-sha: "${{ github.sha }}"
+
+  publish-metrics-workflow:
+    name: Publish Metrics
+    needs:
+      - commit-stage-workflow
+    uses: zerai/ils-jb/.github/workflows/publish-coverage-metrics.yaml@main
+    with:
+      triggering-sha: "${{ github.sha }}"
