@@ -27,11 +27,6 @@ class JobPost
         return $this->id;
     }
 
-    public function setId(UuidInterface $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getTitle(): string
     {
         return $this->title;
