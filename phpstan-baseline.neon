@@ -41,6 +41,16 @@ parameters:
 			path: tests/Behat/Installer/Context/InstallerContext.php
 
 		-
+			message: "#^Service \"session\" is not registered in the container\\.$#"
+			count: 1
+			path: tests/Functional/Controller/Admin/AdminAdministratorControllerTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: tests/Functional/Controller/Admin/AdminAdministratorControllerTest.php
+
+		-
 			message: "#^Property App\\\\Tests\\\\Integration\\\\Repository\\\\UserRepositoryTest\\:\\:\\$entityManager \\(Doctrine\\\\ORM\\\\EntityManager\\) does not accept Doctrine\\\\Persistence\\\\ObjectManager\\.$#"
 			count: 1
 			path: tests/Integration/Repository/UserRepositoryTest.php
