@@ -18,8 +18,12 @@ env:
   # COVERAGE SETTING VARS
   UNIT_TEST_CLOVER_FILENAME: 'coverage-unit-test-clover.xml'
   UNIT_TEST_JUNIT_FILENAME: 'coverage-unit-test-junit.xml'
+  INTEGRATION_TEST_CLOVER_FILENAME: 'integration-test-clover.xml'
+  INTEGRATION_TEST_JUNIT_FILENAME: 'integration-test-junit.xml'
   # ARTIFACTS SETTING VARS
   ARTIFATC_NAME_FOR_UNIT_TESTS_COVERAGE: 'Unit-test-coverage-reports-on-SHA'
+  ARTIFATC_NAME_FOR_INTEGRATION_TESTS_COVERAGE: 'integration-test-coverage-reports-on-SHA'
+
 
 jobs:
   publish-unit-test-report:
@@ -44,5 +48,30 @@ jobs:
           files: ${{ env.UNIT_TEST_CLOVER_FILENAME }}
           name: Unit test
           flags: unit-test
+          fail_ci_if_error: false
+        continue-on-error: true
+
+  publish-integration-test-report:
+    name: Publish integration test report
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout on SHA-${{ inputs.triggering-sha }}
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.triggering-sha }}
+
+      - name: Download integration test coverage artifact
+        id: download-integration-test-coverage-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.ARTIFATC_NAME_FOR_INTEGRATION_TESTS_COVERAGE }}-${{ inputs.triggering-sha}}
+
+      - name: Upload coverage results to Codecov
+        if: ${{ (steps.download-integration-test-coverage-artifact.outcome == 'success')}}
+        uses: codecov/codecov-action@v3
+        with:
+          files: ${{ env.INTEGRATION_TEST_CLOVER_FILENAME }}
+          name: Integration test
+          flags: integration-test
           fail_ci_if_error: false
         continue-on-error: true

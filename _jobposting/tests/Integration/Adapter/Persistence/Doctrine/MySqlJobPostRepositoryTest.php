@@ -7,6 +7,9 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use function Zenstruck\Foundry\repository;
 
+/**
+ * @covers \JobPosting\Adapter\Persistence\Doctrine\MySqlJobPostRepository
+ */
 class MySqlJobPostRepositoryTest extends KernelTestCase
 {
     /**

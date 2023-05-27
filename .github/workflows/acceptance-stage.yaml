@@ -8,6 +8,13 @@ on:
         required: true
         type: string
 
+env:
+  # COVERAGE SETTING VARS
+  INTEGRATION_TEST_CLOVER_FILENAME: 'integration-test-clover.xml'
+  INTEGRATION_TEST_JUNIT_FILENAME: 'integration-test-junit.xml'
+  # ARTIFACTS SETTING VARS
+  ARTIFATC_NAME_FOR_INTEGRATION_TESTS_COVERAGE: 'integration-test-coverage-reports-on-SHA'
+
 defaults:
   run:
     shell: bash
@@ -21,6 +28,7 @@ jobs:
       matrix:
         php:
           - '7.4'
+        generate-coverage-report: [true]
       fail-fast: true
     services:
       mysql:
@@ -64,9 +72,30 @@ jobs:
 
       - name: Run integration tests
         run: |
-          bin/phpunit --testsuite=integration
+          bin/phpunit --testsuite=integration --testdox --no-interaction --colors=always
         env:
           DATABASE_URL: mysql://ci-db-user:ci-db-password@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/ci-db?serverVersion=8&charset=utf8mb4
+
+      - name: Run unit tests with coverage
+        if: ${{ matrix.generate-coverage-report }}
+        run: |
+          bin/phpunit --testsuite=unit --testdox --no-interaction --colors=always \
+          --coverage-clover $INTEGRATION_TEST_CLOVER_FILENAME \
+          --log-junit $INTEGRATION_TEST_JUNIT_FILENAME
+
+      - name: Generate Coverage artifact name
+        if: ${{ matrix.generate-coverage-report }}
+        id: generate-coverage-artifact-name
+        run: echo "name=$ARTIFATC_NAME_FOR_INTEGRATION_TESTS_COVERAGE-$GITHUB_SHA" >> $GITHUB_OUTPUT
+
+      - name: Save coverage reports
+        if: ${{ matrix.generate-coverage-report }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.generate-coverage-artifact-name.outputs.name }}
+          path: |
+            ${{ env.INTEGRATION_TEST_CLOVER_FILENAME }}
+            ${{ env.INTEGRATION_TEST_JUNIT_FILENAME }}
 
 
   functional-test:
