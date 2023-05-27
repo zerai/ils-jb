@@ -6,6 +6,8 @@ use JobPosting\Adapter\Http\Web\Form\Dto\JobPostDto;
 use JobPosting\Adapter\Http\Web\Form\JobPostType;
 use JobPosting\Adapter\Persistence\Doctrine\MySqlJobPostRepository;
 use JobPosting\Application\Model\JobPost\JobPost;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,12 +27,19 @@ class AdminJobPostController extends AbstractController
      * @Route("/admin/jobpost", name="web_admin_jobpost_index", methods={"GET"})
      * @Route("/admin", name="web_admin_index", methods={"GET"})
      */
-    public function list(): Response
+    public function list(Request $request): Response
     {
-        $jobPosts = $this->jobPostRepository->findAll();
+        $queryBuilder = $this->jobPostRepository->findAllJobPostAsQueryBuilder();
+
+        $pager = new Pagerfanta(
+            new QueryAdapter($queryBuilder)
+        );
+
+        $pager->setMaxPerPage(10);
+        $pager->setCurrentPage((int) $request->query->get('page', '1'));
 
         return $this->render('@jobposting/admin/jobpost/index.html.twig', [
-            'jobposts' => $jobPosts,
+            'pager' => $pager,
         ]);
     }
 
@@ -71,7 +80,7 @@ class AdminJobPostController extends AbstractController
     }
 
     /**
-     * @Route("admin/jobpost/{id}", name="web_admin_jobpost_show", methods={"GET"})
+     * @Route("admin/jobpost/{id}/show", name="web_admin_jobpost_show", methods={"GET"})
      */
     public function show(Request $request): Response
     {

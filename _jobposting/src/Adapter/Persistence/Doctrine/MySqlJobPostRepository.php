@@ -3,6 +3,7 @@
 namespace JobPosting\Adapter\Persistence\Doctrine;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use JobPosting\Application\Model\JobPost\JobPost;
 
@@ -40,10 +41,15 @@ class MySqlJobPostRepository extends ServiceEntityRepository
         }
     }
 
-
     /*
      * READSIDE QUERYS
      */
+    public function findAllJobPostAsQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('j')
+            ->orderBy('j.publicationStart', 'ASC')
+        ;
+    }
 
     public function findPublishedJobPost(\DateTimeImmutable $currentDate = null): array
     {
@@ -60,5 +66,19 @@ class MySqlJobPostRepository extends ServiceEntityRepository
             ->getResult();
 
         return $result;
+    }
+
+    public function findPublishedJobPostAsQueryBuilder(\DateTimeImmutable $currentDate = null): QueryBuilder
+    {
+        $currentDate ??= new \DateTimeImmutable('now');
+
+        $qb = $this->createQueryBuilder('j');
+        $qb->where('j.publicationStart <= :publicationStart')
+            ->andWhere('j.publicationEnd >= :publicationEnd')
+            ->orderBy('j.publicationStart')
+            ->setParameter('publicationStart', $currentDate->format('Y-m-d'))
+            ->setParameter('publicationEnd', $currentDate->format('Y-m-d'));
+
+        return $qb;
     }
 }
