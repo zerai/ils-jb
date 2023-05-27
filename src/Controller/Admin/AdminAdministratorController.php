@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,22 +21,29 @@ class AdminAdministratorController extends AbstractController
     }
 
     /**
-     * @Route("/admin/administrator", name="web_admin_administrator")
+     * @Route("/admin/administrator/{page<\d+>}", name="web_admin_administrator", methods={"GET"})
      */
-    public function index(): Response
+    public function index(int $page = 1): Response
     {
         $enableDeleteButton = ! $this->isLastAdministratorAccount();
 
-        $users = $this->userRepository->findAll();
+        $queryBuilder = $this->userRepository->findAllUsersAsQueryBuilder();
+
+        $pager = new Pagerfanta(
+            new QueryAdapter($queryBuilder)
+        );
+
+        $pager->setMaxPerPage(10);
+        $pager->setCurrentPage($page);
 
         return $this->render('admin/administrator/index.html.twig', [
-            'users' => $users,
+            'pager' => $pager,
             'enableDeleteButton' => $enableDeleteButton,
         ]);
     }
 
     /**
-     * @Route("/admin/administrator/{id}", name="web_admin_administrator_show", methods={"GET"})
+     * @Route("/admin/administrator/{id}/show", name="web_admin_administrator_show", methods={"GET"})
      */
     public function show(Request $request): Response
     {
