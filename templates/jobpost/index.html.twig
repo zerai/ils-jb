@@ -18,7 +18,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for jobpost in jobposts  %}
+                {% for jobpost in pager  %}
                     <tr>
                         <td>#</td>
                         <td>{{ jobpost.id }}</td>
@@ -28,6 +28,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+            {{ pagerfanta(pager) }}
         </div>
     </div>
 </main>
