@@ -57,7 +57,7 @@ class AdminAdministratorControllerTest extends WebTestCase
 
         $this->repository->add($fixture, true);
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+        $this->client->request('GET', sprintf('%s%s/show', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('Account amministratore');

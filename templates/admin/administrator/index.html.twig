@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for user in users  %}
+            {% for user in pager  %}
                 <tr>
                     <td>#</td>
                     <td><a href="{{ path('web_admin_administrator_show', {'id': user.id}) }}">{{ user.email }}</a></td>
@@ -41,6 +41,8 @@
             {% endfor %}
             </tbody>
         </table>
+
+        {{ pagerfanta(pager) }}
     </div>
 </main>
 {% endblock %}
