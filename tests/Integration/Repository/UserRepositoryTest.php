@@ -6,6 +6,9 @@ use App\Entity\User;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * @covers \App\Repository\UserRepository
+ */
 class UserRepositoryTest extends KernelTestCase
 {
     /**
