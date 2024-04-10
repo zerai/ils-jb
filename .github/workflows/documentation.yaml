@@ -19,7 +19,7 @@ jobs:
   build-docs:
     name: Build Docs - (php-${{ matrix.php }})
     runs-on: ubuntu-22.04
-    timeout-minutes: 5
+    timeout-minutes: 10
     strategy:
       matrix:
         php:
