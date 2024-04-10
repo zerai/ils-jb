@@ -6,9 +6,9 @@ use App\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\RawMinkContext;
-use function PHPUnit\Framework\assertNotNull;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use function PHPUnit\Framework\assertNotNull;
 
 class AdminAdminAccountContext extends RawMinkContext implements Context
 {

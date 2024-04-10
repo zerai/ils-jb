@@ -3,8 +3,8 @@
 namespace App\Tests\Behat\DefaultContext\Context;
 
 use Behat\Behat\Context\Context;
-use function PHPUnit\Framework\assertStringContainsString;
 use Symfony\Component\HttpKernel\KernelInterface;
+use function PHPUnit\Framework\assertStringContainsString;
 
 require_once __DIR__ . '/../../../../vendor/phpunit/phpunit/src/Framework/Assert/Functions.php';
 
