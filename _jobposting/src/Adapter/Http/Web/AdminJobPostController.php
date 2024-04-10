@@ -49,7 +49,7 @@ class AdminJobPostController extends AbstractController
     public function new(Request $request): Response
     {
         $jobPostFormModel = new JobPostDto();
-        $form = $this->createForm(JobpostType::class, $jobPostFormModel, []);
+        $form = $this->createForm(JobPostType::class, $jobPostFormModel, []);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -104,7 +104,7 @@ class AdminJobPostController extends AbstractController
         ]);
 
         $formModel = $this->mapJobpostToFormModel($jobPost);
-        $form = $this->createForm(JobpostType::class, $formModel, []);
+        $form = $this->createForm(JobPostType::class, $formModel, []);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
