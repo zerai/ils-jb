@@ -9,6 +9,8 @@
             "email": "teclaizerai@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
         "php": ">=7.4",
         "ext-ctype": "*",
@@ -99,8 +101,6 @@
             "JobPosting\\Tests\\": "_jobposting/tests/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
             "@auto-scripts"
