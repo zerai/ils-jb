@@ -6291,16 +6291,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v5.4.41",
+            "version": "v5.4.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "e00b2547f712a97755933db45efc03123b2d2690"
+                "reference": "5ad62a0b29cca8b89753b6d5f2bc5a4294b997ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/e00b2547f712a97755933db45efc03123b2d2690",
-                "reference": "e00b2547f712a97755933db45efc03123b2d2690",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/5ad62a0b29cca8b89753b6d5f2bc5a4294b997ec",
+                "reference": "5ad62a0b29cca8b89753b6d5f2bc5a4294b997ec",
                 "shasum": ""
             },
             "require": {
@@ -6340,7 +6340,7 @@
                 "symfony/http-kernel": "^4.4|^5.0|^6.0",
                 "symfony/intl": "^4.4|^5.0|^6.0",
                 "symfony/mime": "^4.4|^5.0|^6.0",
-                "symfony/property-access": "^4.4|^5.0|^6.0",
+                "symfony/property-access": "^5.4|^6.0",
                 "symfony/property-info": "^5.3|^6.0",
                 "symfony/translation": "^5.4.35|~6.3.12|^6.4.3",
                 "symfony/yaml": "^4.4|^5.0|^6.0"
@@ -6384,7 +6384,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v5.4.41"
+                "source": "https://github.com/symfony/validator/tree/v5.4.42"
             },
             "funding": [
                 {
@@ -6400,7 +6400,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-10T09:18:21+00:00"
+            "time": "2024-07-26T11:57:39+00:00"
         },
         {
             "name": "symfony/var-dumper",
