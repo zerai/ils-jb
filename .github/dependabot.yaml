@@ -44,11 +44,31 @@ updates:
           - "doctrine/*"
         update-types:
           - "patch"
+      pagerfanta:
+        applies-to: "version-updates"
+        dependency-type: "production"
+        patterns:
+          - "babdev/pagerfanta-bundle"
+          - "pagerfanta/*"
+        update-types:
+          - "minor"
+          - "patch"
+      twig-extra:
+        applies-to: "version-updates"
+        dependency-type: "production"
+        patterns:
+          - "twig/extra-bundle"
+          - "twig/*-extra"
+        update-types:
+          - "minor"
+          - "patch"
     ignore:
       - dependency-name: "symfony/*"
         update-types: ["version-update:semver-major", "version-update:semver-minor" ]
       - dependency-name: "doctrine/*"
         update-types: ["version-update:semver-major", "version-update:semver-minor" ]
+      - dependency-name: "twig/*-extra"
+        update-types: ["version-update:semver-major" ]
 
 
   ########################################################################################################################
