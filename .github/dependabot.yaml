@@ -17,9 +17,29 @@ updates:
       prefix: "composer"
     labels:
       - "php dependency"
+    groups:
+      symfony_dev:
+        applies-to: "version-updates"
+        dependency-type: "development"
+        patterns:
+          - "symfony/stopwatch"
+          - "symfony/browser-kit"
+          - "symfony/debug-bundle"
+          - "symfony/css-selector"
+          - "symfony/phpunit-bridge"
+          - "symfony/web-profiler-bundle"
+        update-types:
+          - "patch"
+      symfony_prod:
+        applies-to: "version-updates"
+        dependency-type: "production"
+        patterns:
+          - "symfony/*"
+        update-types:
+          - "patch"
     ignore:
       - dependency-name: "symfony/*"
-        versions: ["6.x","7.x"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor" ]
 
 
   ########################################################################################################################
