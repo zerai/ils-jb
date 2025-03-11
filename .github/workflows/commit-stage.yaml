@@ -46,6 +46,23 @@ jobs:
           ini-values: memory_limit=-1
           coverage: xdebug
 
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-composer-
+
       - name: Install Composer dependencies
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
@@ -99,6 +116,23 @@ jobs:
           ini-values: memory_limit=-1
           coverage: none
 
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-composer-
+
       - name: Install Composer dependencies
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
@@ -129,6 +163,23 @@ jobs:
           php-version: ${{ matrix.php }}
           ini-values: memory_limit=-1
           coverage: none
+
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-composer-
 
       - name: Install Composer dependencies
         run: |
@@ -166,6 +217,23 @@ jobs:
           coverage: none
           tools: composer, composer-normalize:2.16.0
 
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-composer-
+
       - name: Install Composer dependencies
         run: |
           composer install --prefer-dist --no-progress --no-scripts --ansi
@@ -200,6 +268,23 @@ jobs:
           php-version: ${{ matrix.php }}
           ini-values: memory_limit=-1
           coverage: none
+
+      - name: Set Composer Cache Directory
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        if: ${{ vars.USE_COMPOSER_CACHE }}
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            vendor
+          key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-composer-
 
       - name: Install Composer dependencies
         run: |
