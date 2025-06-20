@@ -28,7 +28,7 @@ env:
 jobs:
   publish-unit-test-report:
     name: Publish unit test report
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
         uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
 
   publish-integration-test-report:
     name: Publish integration test report
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout on SHA-${{ inputs.triggering-sha }}
         uses: actions/checkout@v4
