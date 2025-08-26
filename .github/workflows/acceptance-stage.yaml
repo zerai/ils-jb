@@ -48,7 +48,7 @@ jobs:
           ref: ${{ inputs.triggering-sha }}
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.35.2
+        uses: shivammathur/setup-php@2.35.3
         with:
           php-version: ${{ matrix.php }}
           ini-values: memory_limit=-1
@@ -142,7 +142,7 @@ jobs:
           ref: ${{ inputs.triggering-sha }}
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.35.2
+        uses: shivammathur/setup-php@2.35.3
         with:
           php-version: ${{ matrix.php }}
           ini-values: memory_limit=-1
@@ -215,7 +215,7 @@ jobs:
           ref: ${{ inputs.triggering-sha }}
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.35.2
+        uses: shivammathur/setup-php@2.35.3
         with:
           php-version: ${{ matrix.php }}
           ini-values: memory_limit=-1
